@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>¿Quieres ser mi San Valentín?🥺</title>
+  <title>¿Quieres ser mi San Valentín? 🥺</title>
+
   <style>
     * {
       box-sizing: border-box;
       font-family: 'Segoe UI', sans-serif;
     }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -16,30 +18,38 @@
       justify-content: center;
       align-items: center;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
     }
+
     .card {
       background: white;
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       text-align: center;
-      max-width: 350px;
+      max-width: 360px;
       width: 100%;
       animation: fadeIn 0.6s ease;
+      z-index: 2;
     }
+
     h1 {
       color: #e63946;
       margin-bottom: 20px;
     }
+
     p {
       color: #555;
       margin-bottom: 25px;
     }
+
     .buttons {
       display: flex;
       justify-content: center;
       gap: 15px;
+      flex-wrap: wrap;
     }
+
     button {
       border: none;
       padding: 12px 22px;
@@ -48,33 +58,73 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
+
     #yesBtn {
       background: #e63946;
       color: white;
+      animation: pulse 1.5s infinite;
     }
+
     #noBtn {
       background: #adb5bd;
       color: white;
     }
-    button:hover {
-      transform: scale(1.05);
-    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* 🔥 Temblor */
+    @keyframes shake {
+      0% { transform: translateX(0) scale(3); }
+      25% { transform: translateX(-5px) scale(3); }
+      50% { transform: translateX(5px) scale(3); }
+      75% { transform: translateX(-5px) scale(3); }
+      100% { transform: translateX(0) scale(3); }
+    }
+
+    /* ❤️ Corazones */
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      font-size: 22px;
+      animation: floatUp 4s linear forwards;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-100vh); opacity: 0; }
+    }
   </style>
 </head>
+
 <body>
+
+  <!-- 🎵 Música -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Pantalla 1 -->
   <div class="card" id="screen1">
     <h1>💖 ¿Quieres ser mi San Valentín? 💖</h1>
     <p>Prometo risas, cariño y un momento bonito juntos.</p>
     <div class="buttons">
       <button id="yesBtn">Sí 💘</button>
-      <button id="noBtn">No 😡</button>
+      <button id="noBtn">No 🙄</button>
     </div>
   </div>
 
+  <!-- Pantalla 2 -->
   <div class="card" id="screen2" style="display:none;">
     <h1>🎉 ¡WIIIIIII! 🎉</h1>
     <p>
@@ -83,7 +133,7 @@
     </p>
     <p>
       Quiero verte y compartir un momento tranquilo contigo.<br>
-      <strong>Te amo mi Uraraka♥️</strong>
+      <strong>Te amo mi Uraraka ♥️</strong>
     </p>
   </div>
 
@@ -92,19 +142,58 @@
     const noBtn = document.getElementById('noBtn');
     const screen1 = document.getElementById('screen1');
     const screen2 = document.getElementById('screen2');
+    const music = document.getElementById('bgMusic');
 
     let scale = 1;
+    let noIndex = 0;
+
+    const noTexts = [
+      "No 🙄",
+      "¿Estás segura? 🥺",
+      "Piénsalo bien…",
+      "Me voy a poner triste 😢",
+      "Muy triste 💔",
+      "Demasiado triste 😭",
+      "Te estoy haciendo una página web 😔",
+      "Eso no se rechaza",
+      "Vamos, di que si 🥺",
+      "Última oportunidad 😳"
+    ];
 
     noBtn.addEventListener('click', () => {
-      scale += 0.25;
+      scale += 0.3;
       yesBtn.style.transform = `scale(${scale})`;
+
+      if (noIndex < noTexts.length - 1) {
+        noIndex++;
+        noBtn.textContent = noTexts[noIndex];
+      } else {
+        // 🔥 MODO FINAL
+        yesBtn.style.animation = "shake 0.4s infinite";
+        yesBtn.style.transform = "scale(3)";
+        yesBtn.style.fontSize = "26px";
+        yesBtn.style.padding = "22px 45px";
+        yesBtn.textContent = "SÍ O SÍ 💖";
+        noBtn.style.display = "none";
+      }
     });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
 
     yesBtn.addEventListener('click', () => {
+      music.play();
       screen1.style.display = 'none';
       screen2.style.display = 'block';
+      setInterval(createHeart, 350);
     });
   </script>
+
 </body>
 </html>
-
