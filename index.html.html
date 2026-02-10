@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¿Quieres ser mi San Valentín?</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 350px;
+      width: 100%;
+      animation: fadeIn 0.6s ease;
+    }
+    h1 {
+      color: #e63946;
+      margin-bottom: 20px;
+    }
+    p {
+      color: #555;
+      margin-bottom: 25px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    button {
+      border: none;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yesBtn {
+      background: #e63946;
+      color: white;
+    }
+    #noBtn {
+      background: #adb5bd;
+      color: white;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="screen1">
+    <h1>💖 ¿Quieres ser mi San Valentín? 💖</h1>
+    <p>Prometo risas, cariño y un momento bonito juntos.</p>
+    <div class="buttons">
+      <button id="yesBtn">Sí 💘</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+  </div>
+
+  <div class="card" id="screen2" style="display:none;">
+    <h1>🎉 ¡Felicidades! 🎉</h1>
+    <p>
+      Nos vemos el <strong>14 de febrero</strong><br>
+      a las <strong>6:00 pm</strong> 💕
+    </p>
+    <p>
+      Quiero verte y compartir un momento tranquilo contigo.<br>
+      <strong>Te amo ♥️</strong>
+    </p>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+
+    let scale = 1;
+
+    noBtn.addEventListener('click', () => {
+      scale += 0.25;
+      yesBtn.style.transform = `scale(${scale})`;
+    });
+
+    yesBtn.addEventListener('click', () => {
+      screen1.style.display = 'none';
+      screen2.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
